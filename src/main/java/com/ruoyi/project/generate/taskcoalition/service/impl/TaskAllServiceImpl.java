@@ -5,6 +5,7 @@ import com.ruoyi.project.generate.taskcoalition.mapper.TaskAllMapper;
 import com.ruoyi.project.generate.taskcoalition.service.ITaskAllService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class TaskAllServiceImpl implements ITaskAllService {
   @Override
   public int insertTaskAll(TaskAll taskAll) {
     List<Integer> chainIds =
-        taskAllMapper.getChainIdsByCompanyId(taskAll.getCompanyId().intValue());
+        taskAllMapper.getChainIdsByCompanyId(taskAll.getCompanyId());
     int random = (int) (Math.random() * chainIds.size() + 1);
     taskAll.setChainId(random);
     return taskAllMapper.insertTaskAll(taskAll);
@@ -73,7 +74,9 @@ public class TaskAllServiceImpl implements ITaskAllService {
    * @return 结果
    */
   @Override
+  @Transactional
   public int deleteTaskAllByIds(Long[] ids) {
+    taskAllMapper.deleteTaskResource(ids);
     return taskAllMapper.deleteTaskAllByIds(ids);
   }
 
@@ -96,6 +99,11 @@ public class TaskAllServiceImpl implements ITaskAllService {
   @Override
   public TaskAll getOne(Integer id) {
     return taskAllMapper.getOne(id);
+  }
+
+  @Override
+  public List<TaskAll> getChainTask(Integer chainId) {
+    return taskAllMapper.getChainTask(chainId);
   }
 
   @Override

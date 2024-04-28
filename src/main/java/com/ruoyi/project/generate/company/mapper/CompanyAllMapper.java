@@ -81,8 +81,8 @@ public interface CompanyAllMapper {
 
   List<String> getNamesByIds(List<Integer> ids);
 
-  @Select("select * from `ry-vue`.company_all where status = 1")
-  List<CompanyAll> getAllIdleCompany();
+  @Select("select * from `ry-vue`.company_all where status = 1 and  company_type=#{taskType}")
+  List<CompanyAll> getAllIdleCompany(Integer taskType);
 
   @Select("select * from `ry-vue`.company_all where status = 2 and company_all.coalition_id =#{coalitionId}")
   List<CompanyAll> getCompanyByCoalition(Long coalitionId);
@@ -92,4 +92,7 @@ public interface CompanyAllMapper {
 
     @Select("select max(id) from `ry-vue`.company_all")
   Integer getMaxId();
+
+    @Delete("delete from company_resource where company_id in (#{ids})")
+    void deleteCompanyResource(Long[] ids);
 }

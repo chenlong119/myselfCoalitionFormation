@@ -46,6 +46,10 @@ public class TaskAllController extends BaseController {
     return taskAllService.getAllTask();
   }
 
+  @GetMapping("/getChainTask")
+    public List<TaskAll> getChainTask(Integer chainId) {
+        return taskAllService.getChainTask(chainId);
+    }
   /** 导出任务信息列表 */
   @PreAuthorize("@ss.hasPermi('coalition:formation:export')")
   @Log(title = "任务信息", businessType = BusinessType.EXPORT)

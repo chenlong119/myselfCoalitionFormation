@@ -63,5 +63,7 @@ public interface ITaskAllService {
 
   TaskAll getOne(Integer id);
 
+  List<TaskAll> getChainTask(Integer chainId);
+
   List<TaskAll> getAllTask();
 }

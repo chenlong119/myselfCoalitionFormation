@@ -27,8 +27,11 @@ public class CoalitionTaskServiceImpl implements CoalitionTaskService
     ITaskAllService taskAllService;
     @Transactional
     @Override
-    public Integer allocate(Integer taskId, List<Resource> resourceList) {
-        List<CompanyAll> selectedCompany = companyAllService.getCompanyByResource(resourceList);
+    public Integer allocate(Integer taskId,Integer taskType, List<Resource> resourceList) {
+        List<CompanyAll> selectedCompany = companyAllService.getCompanyByResource(resourceList,taskType);
+        if(selectedCompany==null){
+            return -1;
+        }
         Coalition coalition = new Coalition();
         coalition.setCreateTime(LocalDateTime.now());
         coalition.setTaskId(taskId);

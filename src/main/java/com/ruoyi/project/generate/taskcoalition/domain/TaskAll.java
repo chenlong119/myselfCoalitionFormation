@@ -31,7 +31,7 @@ public class TaskAll extends BaseEntity {
   private Integer val;
 
   @Excel(name = "任务类型")
-    private Integer taskType;
+  private Integer taskType;
 
   /** 任务到达时间 */
   @JsonFormat(pattern = "yyyy-MM-dd")
