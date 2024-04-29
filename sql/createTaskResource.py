@@ -9,6 +9,7 @@ def connect_db():
         return conn
     except pymysql.MySQLError as e:
         print(f"Error while connecting to MySQL: {e}")
+
         return None
 
 def fetch_tasks_resources(conn):
@@ -63,9 +64,9 @@ def main():
     if conn:
         tasks_resources = fetch_tasks_resources(conn)
         print(tasks_resources)
-        # if tasks_resources:
-        #     assign_resources(conn, tasks_resources)
-        # conn.close()
+        if tasks_resources:
+            assign_resources(conn, tasks_resources)
+        conn.close()
 
 if __name__ == "__main__":
     main()

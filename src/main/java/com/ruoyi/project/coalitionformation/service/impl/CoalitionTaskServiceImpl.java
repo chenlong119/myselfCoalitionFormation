@@ -5,6 +5,7 @@ import com.ruoyi.project.coalitionformation.entity.Resource;
 import com.ruoyi.project.coalitionformation.mapper.CoalitionTaskMapper;
 import com.ruoyi.project.coalitionformation.service.CoalitionTaskService;
 import com.ruoyi.project.generate.company.domain.CompanyAll;
+import com.ruoyi.project.generate.company.domain.CompanyCoalition;
 import com.ruoyi.project.generate.company.service.ICompanyAllService;
 import com.ruoyi.project.generate.taskcoalition.domain.TaskAll;
 import com.ruoyi.project.generate.taskcoalition.service.ITaskAllService;
@@ -39,7 +40,12 @@ public class CoalitionTaskServiceImpl implements CoalitionTaskService
         Integer coalitionId = coalition.getId();
         coalition.setName("联盟"+ coalitionId);
         coalitionTaskMapper.updateCoalition(coalition);
+        CompanyCoalition companyCoalition=new CompanyCoalition();
+        companyCoalition.setCoalitionId(coalitionId);
         for(CompanyAll company:selectedCompany) {
+            companyCoalition.setLayerId(company.getLayerId());
+            companyCoalition.setCompanyId(company.getId());
+            companyAllService.insertCompanyCoalition(companyCoalition);
             company.setCoalitionId(coalitionId);
             company.setStatus(2);
             companyAllService.updateCompanyAll(company);

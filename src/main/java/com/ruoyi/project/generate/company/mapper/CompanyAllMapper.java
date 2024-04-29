@@ -1,7 +1,9 @@
 package com.ruoyi.project.generate.company.mapper;
 
 import com.ruoyi.project.generate.company.domain.CompanyAll;
+import com.ruoyi.project.generate.company.domain.CompanyCoalition;
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -84,8 +86,9 @@ public interface CompanyAllMapper {
   @Select("select * from `ry-vue`.company_all where status = 1 and  company_type=#{taskType}")
   List<CompanyAll> getAllIdleCompany(Integer taskType);
 
-  @Select("select * from `ry-vue`.company_all where status = 2 and company_all.coalition_id =#{coalitionId}")
-  List<CompanyAll> getCompanyByCoalition(Long coalitionId);
+  @Select("select cc.layer_id as layer_id, cc.company_id as company_id, ca.name as company_name from company_coalition  cc inner join company_all ca\n" +
+          "    on cc.company_id=ca.id and cc.layer_id=ca.layer_id where cc.coalition_id=#{coalitionId}")
+  List<CompanyCoalition> getCompanyByCoalition(Integer coalitionId);
 
     @Select("select * from `ry-vue`.company_all")
   List<CompanyAll> getAllCompany();
@@ -95,4 +98,10 @@ public interface CompanyAllMapper {
 
     @Delete("delete from company_resource where company_id in (#{ids})")
     void deleteCompanyResource(Long[] ids);
+
+    @Insert("insert into company_coalition(coalition_id,layer_id,company_id) values (#{coalitionId},#{layerId} ,#{companyId}  )")
+  void insertCompanyCoalition(CompanyCoalition companyCoalition);
+
+    @Select("select * from company_coalition")
+  List<CompanyCoalition> getAllCoalition();
 }

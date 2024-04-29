@@ -2,6 +2,7 @@ package com.ruoyi.project.generate.company.service;
 
 import com.ruoyi.project.coalitionformation.entity.Resource;
 import com.ruoyi.project.generate.company.domain.CompanyAll;
+import com.ruoyi.project.generate.company.domain.CompanyCoalition;
 
 import java.util.List;
 
@@ -68,7 +69,11 @@ public interface ICompanyAllService {
 
   List<CompanyAll> getCompanyByResource(List<Resource> resources,Integer taskType);
 
-  List<CompanyAll> getCompanyByCoalition(Long coalitionId);
+  List<CompanyCoalition> getCompanyByCoalition(Integer coalitionId);
 
     List<CompanyAll> getAllCompany();
+
+  void insertCompanyCoalition(CompanyCoalition companyCoalition);
+
+  List<CompanyCoalition> getallCoalition();
 }

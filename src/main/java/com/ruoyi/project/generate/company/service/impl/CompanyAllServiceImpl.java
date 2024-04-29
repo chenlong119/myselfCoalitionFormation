@@ -3,6 +3,7 @@ package com.ruoyi.project.generate.company.service.impl;
 import com.ruoyi.project.coalitionformation.entity.Resource;
 import com.ruoyi.project.coalitionformation.mapper.ResourceMapper;
 import com.ruoyi.project.generate.company.domain.CompanyAll;
+import com.ruoyi.project.generate.company.domain.CompanyCoalition;
 import com.ruoyi.project.generate.company.mapper.CompanyAllMapper;
 import com.ruoyi.project.generate.company.service.ICompanyAllService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,7 +128,7 @@ public class CompanyAllServiceImpl implements ICompanyAllService {
     return companyAllMapper.getNamesByIds(tmp);
   }
 
-  public boolean reduceResource(Map<Integer,Integer> target, Map<Integer,Integer> cur )
+  private boolean reduceResource(Map<Integer,Integer> target, Map<Integer,Integer> cur )
   {
     Set<Integer> tmp=new HashSet<>();
     tmp.addAll(target.keySet());
@@ -224,12 +225,22 @@ public class CompanyAllServiceImpl implements ICompanyAllService {
 
 
   @Override
-  public List<CompanyAll> getCompanyByCoalition(Long coalitionId) {
+  public List<CompanyCoalition> getCompanyByCoalition(Integer coalitionId) {
     return companyAllMapper.getCompanyByCoalition(coalitionId);
   }
 
   @Override
   public List<CompanyAll> getAllCompany() {
     return companyAllMapper.getAllCompany();
+  }
+
+  @Override
+  public void insertCompanyCoalition(CompanyCoalition companyCoalition) {
+    companyAllMapper.insertCompanyCoalition(companyCoalition);
+  }
+
+  @Override
+  public List<CompanyCoalition> getallCoalition() {
+    return companyAllMapper.getAllCoalition();
   }
 }

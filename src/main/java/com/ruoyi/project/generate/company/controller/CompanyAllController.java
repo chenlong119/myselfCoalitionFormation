@@ -7,6 +7,7 @@ import com.ruoyi.framework.web.controller.BaseController;
 import com.ruoyi.framework.web.domain.AjaxResult;
 import com.ruoyi.framework.web.page.TableDataInfo;
 import com.ruoyi.project.generate.company.domain.CompanyAll;
+import com.ruoyi.project.generate.company.domain.CompanyCoalition;
 import com.ruoyi.project.generate.company.service.ICompanyAllService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -93,8 +94,13 @@ public class CompanyAllController extends BaseController {
   }
 
   @GetMapping("/getcompanybycoalition")
-    public List<CompanyAll> getCompanyByCoalition(Long coalitionId) {
+    public List<CompanyCoalition> getCompanyByCoalition(Integer coalitionId) {
         return companyAllService.getCompanyByCoalition(coalitionId);
+    }
+    @GetMapping("/getallcoalition")
+    public  List<CompanyCoalition> getallCoalition()
+    {
+      return companyAllService.getallCoalition();
     }
 
     @GetMapping("/getall")
